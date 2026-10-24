@@ -1,0 +1,256 @@
+{
+  "raw_city_day": {
+    "initial_rows": 29531,
+    "unique_cities": 26,
+    "date_min": "2015-01-01",
+    "date_max": "2020-07-01",
+    "missing_aqi_labels": 4681
+  },
+  "continuous_calendar": {
+    "reindexed_total_rows": 29531,
+    "added_calendar_days": 0
+  },
+  "city_eligibility": [
+    {
+      "City": "Chennai",
+      "TotalRecords": 2009,
+      "TotalValidAQI": 1884,
+      "ValidAQI_2018": 365,
+      "ValidAQI_2019": 365,
+      "CoverageTier": "Primary Modeling Qualified (Tier 1)"
+    },
+    {
+      "City": "Bengaluru",
+      "TotalRecords": 2009,
+      "TotalValidAQI": 1910,
+      "ValidAQI_2018": 361,
+      "ValidAQI_2019": 365,
+      "CoverageTier": "Primary Modeling Qualified (Tier 1)"
+    },
+    {
+      "City": "Kolkata",
+      "TotalRecords": 814,
+      "TotalValidAQI": 754,
+      "ValidAQI_2018": 206,
+      "ValidAQI_2019": 365,
+      "CoverageTier": "Primary Modeling Qualified (Tier 1)"
+    },
+    {
+      "City": "Jaipur",
+      "TotalRecords": 1114,
+      "TotalValidAQI": 1094,
+      "ValidAQI_2018": 365,
+      "ValidAQI_2019": 365,
+      "CoverageTier": "Primary Modeling Qualified (Tier 1)"
+    },
+    {
+      "City": "Mumbai",
+      "TotalRecords": 2009,
+      "TotalValidAQI": 775,
+      "ValidAQI_2018": 227,
+      "ValidAQI_2019": 365,
+      "CoverageTier": "Primary Modeling Qualified (Tier 1)"
+    },
+    {
+      "City": "Lucknow",
+      "TotalRecords": 2009,
+      "TotalValidAQI": 1893,
+      "ValidAQI_2018": 365,
+      "ValidAQI_2019": 365,
+      "CoverageTier": "Primary Modeling Qualified (Tier 1)"
+    },
+    {
+      "City": "Hyderabad",
+      "TotalRecords": 2006,
+      "TotalValidAQI": 1880,
+      "ValidAQI_2018": 365,
+      "ValidAQI_2019": 365,
+      "CoverageTier": "Primary Modeling Qualified (Tier 1)"
+    },
+    {
+      "City": "Delhi",
+      "TotalRecords": 2009,
+      "TotalValidAQI": 1999,
+      "ValidAQI_2018": 365,
+      "ValidAQI_2019": 365,
+      "CoverageTier": "Primary Modeling Qualified (Tier 1)"
+    },
+    {
+      "City": "Gurugram",
+      "TotalRecords": 1679,
+      "TotalValidAQI": 1453,
+      "ValidAQI_2018": 340,
+      "ValidAQI_2019": 364,
+      "CoverageTier": "Primary Modeling Qualified (Tier 1)"
+    },
+    {
+      "City": "Amritsar",
+      "TotalRecords": 1221,
+      "TotalValidAQI": 1126,
+      "ValidAQI_2018": 324,
+      "ValidAQI_2019": 362,
+      "CoverageTier": "Primary Modeling Qualified (Tier 1)"
+    },
+    {
+      "City": "Patna",
+      "TotalRecords": 1858,
+      "TotalValidAQI": 1459,
+      "ValidAQI_2018": 361,
+      "ValidAQI_2019": 359,
+      "CoverageTier": "Primary Modeling Qualified (Tier 1)"
+    },
+    {
+      "City": "Ahmedabad",
+      "TotalRecords": 2009,
+      "TotalValidAQI": 1334,
+      "ValidAQI_2018": 357,
+      "ValidAQI_2019": 352,
+      "CoverageTier": "Primary Modeling Qualified (Tier 1)"
+    },
+    {
+      "City": "Thiruvananthapuram",
+      "TotalRecords": 1112,
+      "TotalValidAQI": 1052,
+      "ValidAQI_2018": 361,
+      "ValidAQI_2019": 351,
+      "CoverageTier": "Primary Modeling Qualified (Tier 1)"
+    },
+    {
+      "City": "Visakhapatnam",
+      "TotalRecords": 1462,
+      "TotalValidAQI": 1171,
+      "ValidAQI_2018": 326,
+      "ValidAQI_2019": 341,
+      "CoverageTier": "Primary Modeling Qualified (Tier 1)"
+    },
+    {
+      "City": "Brajrajnagar",
+      "TotalRecords": 938,
+      "TotalValidAQI": 713,
+      "ValidAQI_2018": 260,
+      "ValidAQI_2019": 322,
+      "CoverageTier": "Primary Modeling Qualified (Tier 1)"
+    },
+    {
+      "City": "Guwahati",
+      "TotalRecords": 502,
+      "TotalValidAQI": 495,
+      "ValidAQI_2018": 0,
+      "ValidAQI_2019": 312,
+      "CoverageTier": "Secondary Test Qualified (Tier 2)"
+    },
+    {
+      "City": "Amaravati",
+      "TotalRecords": 951,
+      "TotalValidAQI": 841,
+      "ValidAQI_2018": 312,
+      "ValidAQI_2019": 309,
+      "CoverageTier": "Primary Modeling Qualified (Tier 1)"
+    },
+    {
+      "City": "Jorapokhar",
+      "TotalRecords": 1169,
+      "TotalValidAQI": 771,
+      "ValidAQI_2018": 225,
+      "ValidAQI_2019": 303,
+      "CoverageTier": "Primary Modeling Qualified (Tier 1)"
+    },
+    {
+      "City": "Talcher",
+      "TotalRecords": 925,
+      "TotalValidAQI": 698,
+      "ValidAQI_2018": 239,
+      "ValidAQI_2019": 303,
+      "CoverageTier": "Primary Modeling Qualified (Tier 1)"
+    },
+    {
+      "City": "Coimbatore",
+      "TotalRecords": 386,
+      "TotalValidAQI": 344,
+      "ValidAQI_2018": 0,
+      "ValidAQI_2019": 188,
+      "CoverageTier": "EDA Only (Insufficient Historical Depth)"
+    },
+    {
+      "City": "Chandigarh",
+      "TotalRecords": 304,
+      "TotalValidAQI": 299,
+      "ValidAQI_2018": 0,
+      "ValidAQI_2019": 117,
+      "CoverageTier": "EDA Only (Insufficient Historical Depth)"
+    },
+    {
+      "City": "Bhopal",
+      "TotalRecords": 289,
+      "TotalValidAQI": 278,
+      "ValidAQI_2018": 0,
+      "ValidAQI_2019": 105,
+      "CoverageTier": "EDA Only (Insufficient Historical Depth)"
+    },
+    {
+      "City": "Shillong",
+      "TotalRecords": 310,
+      "TotalValidAQI": 205,
+      "ValidAQI_2018": 0,
+      "ValidAQI_2019": 63,
+      "CoverageTier": "EDA Only (Insufficient Historical Depth)"
+    },
+    {
+      "City": "Aizawl",
+      "TotalRecords": 113,
+      "TotalValidAQI": 111,
+      "ValidAQI_2018": 0,
+      "ValidAQI_2019": 0,
+      "CoverageTier": "EDA Only (Insufficient Historical Depth)"
+    },
+    {
+      "City": "Kochi",
+      "TotalRecords": 162,
+      "TotalValidAQI": 158,
+      "ValidAQI_2018": 0,
+      "ValidAQI_2019": 0,
+      "CoverageTier": "EDA Only (Insufficient Historical Depth)"
+    },
+    {
+      "City": "Ernakulam",
+      "TotalRecords": 162,
+      "TotalValidAQI": 153,
+      "ValidAQI_2018": 0,
+      "ValidAQI_2019": 0,
+      "CoverageTier": "EDA Only (Insufficient Historical Depth)"
+    }
+  ],
+  "imputation": {
+    "strategy": "none",
+    "forward_fill_limit_days": 0,
+    "pre_imputation_missing": {
+      "PM2.5": 4598,
+      "PM10": 11140,
+      "NO": 3582,
+      "NO2": 3585,
+      "NOx": 4185,
+      "NH3": 10328,
+      "CO": 2059,
+      "SO2": 3854,
+      "O3": 4022,
+      "Benzene": 5623,
+      "Toluene": 8041,
+      "Xylene": 18109
+    },
+    "post_imputation_missing": {
+      "PM2.5": 4598,
+      "PM10": 11140,
+      "NO": 3582,
+      "NO2": 3585,
+      "NOx": 4185,
+      "NH3": 10328,
+      "CO": 2059,
+      "SO2": 3854,
+      "O3": 4022,
+      "Benzene": 5623,
+      "Toluene": 8041,
+      "Xylene": 18109
+    }
+  },
+  "raw_immutability_verified": true
+}

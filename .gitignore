@@ -1,0 +1,33 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches and Virtual Environments
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Large Datasets (Raw CPCB CSVs ~290MB violate GitHub 100MB limit; preserved locally in data/raw/)
+data/raw/*.csv
+data/interim/*.parquet
+data/processed/*.parquet
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+
+# Operating System Files
+Thumbs.db
+[Dd]esktop.ini
+.DS_Store
+
+# Logs and Scratch Files
+*.log
+scratch/

@@ -1,0 +1,494 @@
+{
+  "city_day_results": {
+    "numeric_stats": {
+      "PM2.5": {
+        "missing_pct": 15.57,
+        "min": 0.04,
+        "median": 48.57,
+        "max": 949.99,
+        "negatives_count": 0
+      },
+      "PM10": {
+        "missing_pct": 37.72,
+        "min": 0.01,
+        "median": 95.68,
+        "max": 1000.0,
+        "negatives_count": 0
+      },
+      "NO": {
+        "missing_pct": 12.13,
+        "min": 0.02,
+        "median": 9.89,
+        "max": 390.68,
+        "negatives_count": 0
+      },
+      "NO2": {
+        "missing_pct": 12.14,
+        "min": 0.01,
+        "median": 21.69,
+        "max": 362.21,
+        "negatives_count": 0
+      },
+      "NOx": {
+        "missing_pct": 14.17,
+        "min": 0.0,
+        "median": 23.52,
+        "max": 467.63,
+        "negatives_count": 0
+      },
+      "NH3": {
+        "missing_pct": 34.97,
+        "min": 0.01,
+        "median": 15.85,
+        "max": 352.89,
+        "negatives_count": 0
+      },
+      "CO": {
+        "missing_pct": 6.97,
+        "min": 0.0,
+        "median": 0.89,
+        "max": 175.81,
+        "negatives_count": 0
+      },
+      "SO2": {
+        "missing_pct": 13.05,
+        "min": 0.01,
+        "median": 9.16,
+        "max": 193.86,
+        "negatives_count": 0
+      },
+      "O3": {
+        "missing_pct": 13.62,
+        "min": 0.01,
+        "median": 30.84,
+        "max": 257.73,
+        "negatives_count": 0
+      },
+      "Benzene": {
+        "missing_pct": 19.04,
+        "min": 0.0,
+        "median": 1.07,
+        "max": 455.03,
+        "negatives_count": 0
+      },
+      "Toluene": {
+        "missing_pct": 27.23,
+        "min": 0.0,
+        "median": 2.97,
+        "max": 454.85,
+        "negatives_count": 0
+      },
+      "Xylene": {
+        "missing_pct": 61.32,
+        "min": 0.0,
+        "median": 0.98,
+        "max": 170.37,
+        "negatives_count": 0
+      },
+      "AQI": {
+        "missing_pct": 15.85,
+        "min": 13.0,
+        "median": 118.0,
+        "max": 2049.0,
+        "negatives_count": 0
+      }
+    },
+    "bucket_counts": {
+      "Moderate": 8829,
+      "Satisfactory": 8224,
+      "NaN": 4681,
+      "Poor": 2781,
+      "Very Poor": 2337,
+      "Good": 1341,
+      "Severe": 1338
+    },
+    "bucket_ranges": {
+      "Poor": {
+        "min_aqi": 201.0,
+        "max_aqi": 300.0,
+        "count": 2781
+      },
+      "Very Poor": {
+        "min_aqi": 301.0,
+        "max_aqi": 400.0,
+        "count": 2337
+      },
+      "Severe": {
+        "min_aqi": 401.0,
+        "max_aqi": 2049.0,
+        "count": 1338
+      },
+      "Moderate": {
+        "min_aqi": 101.0,
+        "max_aqi": 200.0,
+        "count": 8829
+      },
+      "Satisfactory": {
+        "min_aqi": 51.0,
+        "max_aqi": 100.0,
+        "count": 8224
+      },
+      "Good": {
+        "min_aqi": 13.0,
+        "max_aqi": 50.0,
+        "count": 1341
+      }
+    },
+    "city_spans": {
+      "Ahmedabad": {
+        "first_record": "2015-01-01",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2015-01-29",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 2009,
+        "valid_aqi_count": 1334,
+        "valid_aqi_pct": 66.4
+      },
+      "Aizawl": {
+        "first_record": "2020-03-11",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2020-03-12",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 113,
+        "valid_aqi_count": 111,
+        "valid_aqi_pct": 98.23
+      },
+      "Amaravati": {
+        "first_record": "2017-11-24",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2017-11-25",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 951,
+        "valid_aqi_count": 841,
+        "valid_aqi_pct": 88.43
+      },
+      "Amritsar": {
+        "first_record": "2017-02-27",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2017-02-28",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 1221,
+        "valid_aqi_count": 1126,
+        "valid_aqi_pct": 92.22
+      },
+      "Bengaluru": {
+        "first_record": "2015-01-01",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2015-03-21",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 2009,
+        "valid_aqi_count": 1910,
+        "valid_aqi_pct": 95.07
+      },
+      "Bhopal": {
+        "first_record": "2019-09-17",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2019-09-18",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 289,
+        "valid_aqi_count": 278,
+        "valid_aqi_pct": 96.19
+      },
+      "Brajrajnagar": {
+        "first_record": "2017-12-07",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2017-12-08",
+        "last_valid_aqi": "2020-06-12",
+        "total_records": 938,
+        "valid_aqi_count": 713,
+        "valid_aqi_pct": 76.01
+      },
+      "Chandigarh": {
+        "first_record": "2019-09-02",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2019-09-03",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 304,
+        "valid_aqi_count": 299,
+        "valid_aqi_pct": 98.36
+      },
+      "Chennai": {
+        "first_record": "2015-01-01",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2015-03-24",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 2009,
+        "valid_aqi_count": 1884,
+        "valid_aqi_pct": 93.78
+      },
+      "Coimbatore": {
+        "first_record": "2019-06-12",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2019-06-13",
+        "last_valid_aqi": "2020-06-30",
+        "total_records": 386,
+        "valid_aqi_count": 344,
+        "valid_aqi_pct": 89.12
+      },
+      "Delhi": {
+        "first_record": "2015-01-01",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2015-01-01",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 2009,
+        "valid_aqi_count": 1999,
+        "valid_aqi_pct": 99.5
+      },
+      "Ernakulam": {
+        "first_record": "2020-01-22",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2020-01-25",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 162,
+        "valid_aqi_count": 153,
+        "valid_aqi_pct": 94.44
+      },
+      "Gurugram": {
+        "first_record": "2015-11-27",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2016-01-23",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 1679,
+        "valid_aqi_count": 1453,
+        "valid_aqi_pct": 86.54
+      },
+      "Guwahati": {
+        "first_record": "2019-02-16",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2019-02-17",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 502,
+        "valid_aqi_count": 495,
+        "valid_aqi_pct": 98.61
+      },
+      "Hyderabad": {
+        "first_record": "2015-01-04",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2015-03-31",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 2006,
+        "valid_aqi_count": 1880,
+        "valid_aqi_pct": 93.72
+      },
+      "Jaipur": {
+        "first_record": "2017-06-14",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2017-06-20",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 1114,
+        "valid_aqi_count": 1094,
+        "valid_aqi_pct": 98.2
+      },
+      "Jorapokhar": {
+        "first_record": "2017-04-20",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2017-04-21",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 1169,
+        "valid_aqi_count": 771,
+        "valid_aqi_pct": 65.95
+      },
+      "Kochi": {
+        "first_record": "2020-01-22",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2020-01-23",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 162,
+        "valid_aqi_count": 158,
+        "valid_aqi_pct": 97.53
+      },
+      "Kolkata": {
+        "first_record": "2018-04-10",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2018-04-11",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 814,
+        "valid_aqi_count": 754,
+        "valid_aqi_pct": 92.63
+      },
+      "Lucknow": {
+        "first_record": "2015-01-01",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2015-03-21",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 2009,
+        "valid_aqi_count": 1893,
+        "valid_aqi_pct": 94.23
+      },
+      "Mumbai": {
+        "first_record": "2015-01-01",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2018-05-07",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 2009,
+        "valid_aqi_count": 775,
+        "valid_aqi_pct": 38.58
+      },
+      "Patna": {
+        "first_record": "2015-06-01",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2015-10-03",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 1858,
+        "valid_aqi_count": 1459,
+        "valid_aqi_pct": 78.53
+      },
+      "Shillong": {
+        "first_record": "2019-08-27",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2019-08-28",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 310,
+        "valid_aqi_count": 205,
+        "valid_aqi_pct": 66.13
+      },
+      "Talcher": {
+        "first_record": "2017-12-20",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2018-02-08",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 925,
+        "valid_aqi_count": 698,
+        "valid_aqi_pct": 75.46
+      },
+      "Thiruvananthapuram": {
+        "first_record": "2017-06-16",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2017-06-23",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 1112,
+        "valid_aqi_count": 1052,
+        "valid_aqi_pct": 94.6
+      },
+      "Visakhapatnam": {
+        "first_record": "2016-07-01",
+        "last_record": "2020-07-01",
+        "first_valid_aqi": "2016-07-07",
+        "last_valid_aqi": "2020-07-01",
+        "total_records": 1462,
+        "valid_aqi_count": 1171,
+        "valid_aqi_pct": 80.1
+      }
+    },
+    "gap_distributions": {
+      "Delhi": {
+        "total_days_in_span": 2009,
+        "valid_aqi_days": 1999,
+        "missing_aqi_days": 10,
+        "isolated_1_day_gaps": 2,
+        "gaps_2_days": 2,
+        "gaps_3_to_7_days": 1,
+        "gaps_over_7_days": 0,
+        "max_gap_days": 4
+      },
+      "Bengaluru": {
+        "total_days_in_span": 2009,
+        "valid_aqi_days": 1910,
+        "missing_aqi_days": 99,
+        "isolated_1_day_gaps": 3,
+        "gaps_2_days": 2,
+        "gaps_3_to_7_days": 3,
+        "gaps_over_7_days": 1,
+        "max_gap_days": 79
+      },
+      "Chennai": {
+        "total_days_in_span": 2009,
+        "valid_aqi_days": 1884,
+        "missing_aqi_days": 125,
+        "isolated_1_day_gaps": 5,
+        "gaps_2_days": 2,
+        "gaps_3_to_7_days": 2,
+        "gaps_over_7_days": 3,
+        "max_gap_days": 82
+      },
+      "Mumbai": {
+        "total_days_in_span": 2009,
+        "valid_aqi_days": 775,
+        "missing_aqi_days": 1234,
+        "isolated_1_day_gaps": 2,
+        "gaps_2_days": 1,
+        "gaps_3_to_7_days": 2,
+        "gaps_over_7_days": 1,
+        "max_gap_days": 1222
+      },
+      "Hyderabad": {
+        "total_days_in_span": 2009,
+        "valid_aqi_days": 1880,
+        "missing_aqi_days": 129,
+        "isolated_1_day_gaps": 7,
+        "gaps_2_days": 1,
+        "gaps_3_to_7_days": 3,
+        "gaps_over_7_days": 2,
+        "max_gap_days": 89
+      },
+      "Kolkata": {
+        "total_days_in_span": 2009,
+        "valid_aqi_days": 754,
+        "missing_aqi_days": 1255,
+        "isolated_1_day_gaps": 0,
+        "gaps_2_days": 0,
+        "gaps_3_to_7_days": 0,
+        "gaps_over_7_days": 2,
+        "max_gap_days": 1196
+      },
+      "Ahmedabad": {
+        "total_days_in_span": 2009,
+        "valid_aqi_days": 1334,
+        "missing_aqi_days": 675,
+        "isolated_1_day_gaps": 16,
+        "gaps_2_days": 7,
+        "gaps_3_to_7_days": 9,
+        "gaps_over_7_days": 4,
+        "max_gap_days": 340
+      }
+    }
+  },
+  "join_results": {
+    "stations_columns": [
+      "StationId",
+      "StationName",
+      "City",
+      "State",
+      "Status"
+    ],
+    "unmatched_station_ids_in_day": [],
+    "station_day_merged_len": 108035,
+    "station_day_original_len": 108035,
+    "join_cardinality_preserved": true,
+    "cities_in_both_count": 26,
+    "cities_in_both": [
+      "Ahmedabad",
+      "Aizawl",
+      "Amaravati",
+      "Amritsar",
+      "Bengaluru",
+      "Bhopal",
+      "Brajrajnagar",
+      "Chandigarh",
+      "Chennai",
+      "Coimbatore",
+      "Delhi",
+      "Ernakulam",
+      "Gurugram",
+      "Guwahati",
+      "Hyderabad",
+      "Jaipur",
+      "Jorapokhar",
+      "Kochi",
+      "Kolkata",
+      "Lucknow",
+      "Mumbai",
+      "Patna",
+      "Shillong",
+      "Talcher",
+      "Thiruvananthapuram",
+      "Visakhapatnam"
+    ],
+    "cities_in_city_day_not_stations": [],
+    "station_status_counts": {
+      "Active": 131,
+      "NaN": 97,
+      "Inactive": 2
+    }
+  }
+}

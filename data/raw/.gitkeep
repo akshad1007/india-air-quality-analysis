@@ -1,0 +1,3 @@
+# Raw data directory
+# CSV files from Rohan Rao's Kaggle dataset are preserved locally here and ignored in Git due to file sizes (>100MB).
+# Download instructions are provided in README.md.
