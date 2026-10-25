@@ -47,10 +47,10 @@ This project resolves these challenges by establishing a leak-free temporal feat
 ## 3. Key Capabilities
 
 - **Strict Temporal Barrier:** Forecasts next-day continuous composite AQI ($\text{AQI}_{c, t+1}$) using strictly the information set available at or before prediction origin day $t$, enforcing municipal boundary isolation.
-- **Predeclared Model Selection:** Evaluated Naive Persistence, Ridge Regression, Random Forest, and HistGradientBoosting across chronological training folds ($\le \text{June 2018}$) and selected the champion based on pre-declared validation MAE (July–December 2018).
-- **Out-of-Time & Stress Testing:** Evaluated on an untouched 2019 held-out primary benchmark ($N=6,201$) and an exogenous stress-test partition during the 2020 nationwide COVID-19 lockdown ($N=3,124$).
+- **Predeclared Model Selection:** Evaluated Naive Persistence, Ridge Regression, Random Forest, and HistGradientBoosting across chronological training folds (≤ June 2018) and selected the champion based on pre-declared validation MAE (July–December 2018).
+- **Out-of-Time & Stress Testing:** Evaluated on an untouched 2019 held-out primary benchmark ($N = 6,201$) and an exogenous stress-test partition during the 2020 nationwide COVID-19 lockdown ($N = 3,124$).
 - **Explainable AI (XAI):** Integrated Path-Dependent TreeSHAP to quantify global feature importances and local decision breakdowns for typical vs extreme pollution episodes.
-- **Distribution-Free Uncertainty Quantification:** Implemented split-conformal prediction calibrated on pre-2019 validation residuals ($N=2,982$), delivering 90% and 95% prediction intervals with non-negative lower-bound truncation.
+- **Distribution-Free Uncertainty Quantification:** Implemented split-conformal prediction calibrated on pre-2019 validation residuals ($N = 2,982$), delivering 90% and 95% prediction intervals with non-negative lower-bound truncation.
 - **Audited Inference CLI:** Headless command-line tool supporting single-row JSON inference and atomic batch CSV processing with physical constraint verification and imputation disclosure.
 - **Comprehensive Verification Suite:** 88 automated unit and integration tests passing with 100% success rate.
 
@@ -60,7 +60,7 @@ This project resolves these challenges by establishing a leak-free temporal feat
 
 - **Dataset Source:** Multi-year CAAQMS surface monitoring records published by CPCB and compiled by Rohan Rao on [Kaggle](https://www.kaggle.com/datasets/rohanrao/air-quality-data-in-india).
 - **Temporal Span:** January 1, 2015 to July 1, 2020.
-- **Geographic Coverage:** 18 Tier-1 qualified municipal jurisdictions with continuous multi-year telemetry: Ahmedabad, Amaravati, Amritsar, Bengaluru, Brajrajnagar, Chennai, Delhi, Gurugram, Hyderabad, Jaipur, Jorapokhar, Kolkata, Lucknow, Mumbai, Patna, Talcher, Thiruvananthapuram, and Visakhapatnam. (8 fragmented cities with $<40\%$ coverage were quarantined).
+- **Geographic Coverage:** 18 Tier-1 qualified municipal jurisdictions with continuous multi-year telemetry: Ahmedabad, Amaravati, Amritsar, Bengaluru, Brajrajnagar, Chennai, Delhi, Gurugram, Hyderabad, Jaipur, Jorapokhar, Kolkata, Lucknow, Mumbai, Patna, Talcher, Thiruvananthapuram, and Visakhapatnam. (8 fragmented cities with <40% coverage were quarantined).
 - **Primary Modeling Table:** `city_day.csv` (29,531 raw rows across 16 criteria columns).
 
 ---
@@ -123,7 +123,7 @@ Post-Modeling Layers: TreeSHAP Explainability + Conformal Prediction Intervals +
 
 ## 7. Ahmedabad Sensor Saturation Anomaly & Sensitivity Analysis
 
-Residual diagnostics revealed that in 2019 Cohort A, **Ahmedabad accounts for only 347 rows (5.6% of records) but contributed 72.59% of total network squared error** (13.93M out of 19.19M points) due to extreme CO sensor saturation ($\text{CO} > 400\text{ mg/m}^3$) driving observed AQI past statutory limits ($>1,000$).
+Residual diagnostics revealed that in 2019 Cohort A, **Ahmedabad accounts for only 347 rows (5.6% of records) but contributed 72.59% of total network squared error** (13.93M out of 19.19M points) due to extreme CO sensor saturation (CO > 400 mg/m³) driving observed AQI past statutory limits (>1,000).
 
 | Evaluation Subset | Model Pipeline | MAE (AQI pts) | RMSE (AQI pts) | $R^2$ Score | RMSE Impr. |
 | :--- | :--- | :---: | :---: | :---: | :---: |
@@ -138,8 +138,8 @@ Excluding the saturated sensor cohort reveals that across the remaining 17 munic
 ## 8. Explainability via Path-Dependent TreeSHAP
 
 Model interpretability was formalized using TreeSHAP on the frozen Random Forest pipeline:
-- **Dominant Predictive Drivers:** Observed same-day $\text{AQI}_t$ (mean $|\text{SHAP}| = 35.63\text{ AQI points}$) and $\text{PM25}_t$ (mean $|\text{SHAP}| = 16.59$) govern 66.8% of global model variance.
-- **Secondary Modulators:** 7-day backward rolling average ($\text{AQI\_roll\_mean\_7d}$, mean $|\text{SHAP}| = 5.70$) and seasonal harmonics ($\text{target\_cos\_doy}$, mean $|\text{SHAP}| = 4.29$) provide momentum and seasonal adjustment.
+- **Dominant Predictive Drivers:** Observed same-day $\text{AQI}_t$ (mean $|\text{SHAP}| = 35.63$ AQI points) and $\text{PM}_{2.5}(t)$ (mean $|\text{SHAP}| = 16.59$) govern 66.8% of global model variance.
+- **Secondary Modulators:** 7-day backward rolling average (`aqi_roll_mean_7d`, mean $|\text{SHAP}| = 5.70$) and seasonal harmonics (`target_cos_doy`, mean $|\text{SHAP}| = 4.29$) provide momentum and seasonal adjustment.
 - **Mathematical Additivity Verification:** For every evaluation sample, local additivity $f(x) = \phi_0 + \sum \phi_j(x)$ matched direct pipeline predictions within $5.91 \times 10^{-12}$ AQI points.
 
 Visual assets are archived in `reports/figures/`:
@@ -152,18 +152,18 @@ Visual assets are archived in `reports/figures/`:
 
 ## 9. Prediction Uncertainty via Conformal Prediction
 
-Using split-conformal prediction calibrated on pre-2019 validation absolute residuals ($N=2,982$), finite-sample quantiles were established:
-- **90% Conformal Quantile:** $q_{0.90} = \mathbf{57.0621\text{ AQI points}}$ ($k = 2685$)
-- **95% Conformal Quantile:** $q_{0.95} = \mathbf{90.3847\text{ AQI points}}$ ($k = 2834$)
+Using split-conformal prediction calibrated on pre-2019 validation absolute residuals ($N = 2,982$), finite-sample quantiles were established:
+- **90% Conformal Quantile:** $q_{0.90} = 57.0621$ AQI points ($k = 2685$)
+- **95% Conformal Quantile:** $q_{0.95} = 90.3847$ AQI points ($k = 2834$)
 
 Intervals are constructed as $[ \max(0.0, \widehat{y} - q), \widehat{y} + q ]$. Lower bounds are truncated at 0.0 (non-negative continuous AQI); upper bounds are **unclipped at 500** to preserve continuous risk assessment.
 
 | Evaluation Cohort | Nominal Level | Conformal Margin | Empirical Coverage | Mean Interval Width |
 | :--- | :---: | :---: | :---: | :---: |
-| **2019 Primary Test** ($N=6,201$) | 90% | $\pm 57.0621$ | **90.21%** | 113.90 AQI points |
-| **2019 Primary Test** ($N=6,201$) | 95% | $\pm 90.3847$ | **94.97%** | 175.08 AQI points |
-| **2020 Stress Test** ($N=3,124$)  | 90% | $\pm 57.0621$ | **94.40%** | 113.69 AQI points |
-| **2020 Stress Test** ($N=3,124$)  | 95% | $\pm 90.3847$ | **98.08%** | 172.10 AQI points |
+| **2019 Primary Test** ($N = 6,201$) | 90% | ±57.0621 | **90.21%** | 113.90 AQI points |
+| **2019 Primary Test** ($N = 6,201$) | 95% | ±90.3847 | **94.97%** | 175.08 AQI points |
+| **2020 Stress Test** ($N = 3,124$)  | 90% | ±57.0621 | **94.40%** | 113.69 AQI points |
+| **2020 Stress Test** ($N = 3,124$)  | 95% | ±90.3847 | **98.08%** | 172.10 AQI points |
 
 ### Critical Methodological Limitations
 1. **Exchangeability in Time Series:** Conformal coverage guarantees assume exchangeable observations. Autocorrelation and seasonal drift introduce distribution shift; intervals represent empirical calibration baselines rather than asymptotic guarantees.
@@ -210,7 +210,7 @@ python -m src.models.predict_cli --input-json data/sample_delhi.json --format js
 ```
 
 ### Operational Guardrails Enforced by CLI
-- **Non-Negativity Constraint:** Rejects negative physical concentrations ($\text{PM}_{2.5}, \text{PM}_{10}, \text{NO}_2, \text{SO}_2, \text{CO}, \text{O}_3 < 0$) with error code 2.
+- **Non-Negativity Constraint:** Rejects negative physical concentrations (`PM2.5, PM10, NO2, SO2, CO, O3 < 0`) with error code 2.
 - **Transparent Imputation:** Missing numerical features trigger pipeline median imputation, disclosed explicitly in the output.
 - **Unknown-City Extrapolation Warning:** Unseen cities encode to an all-zero vector; the CLI emits an explicit extrapolation notice.
 - **Model Immutability:** Loaded in strictly read-only mode via `load_frozen_pipeline()`; never calls `.fit()` or alters parameters.
