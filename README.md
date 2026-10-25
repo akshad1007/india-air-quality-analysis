@@ -139,7 +139,7 @@ Excluding the saturated sensor cohort reveals that across the remaining 17 munic
 
 Model interpretability was formalized using TreeSHAP on the frozen Random Forest pipeline:
 - **Dominant Predictive Drivers:** Observed same-day $\text{AQI}_t$ (mean $|\text{SHAP}| = 35.63$ AQI points) and $\text{PM}_{2.5}(t)$ (mean $|\text{SHAP}| = 16.59$) govern 66.8% of global model variance.
-- **Secondary Modulators:** 7-day backward rolling average (`aqi_roll_mean_7d`, mean $|\text{SHAP}| = 5.70$) and seasonal harmonics (`target_cos_doy`, mean $|\text{SHAP}| = 4.29$) provide momentum and seasonal adjustment.
+- **Secondary Modulators:** 7-day backward rolling average (`AQI_roll_mean_7d`, mean $|\text{SHAP}| = 5.70$) and seasonal harmonics (`target_cos_doy`, mean $|\text{SHAP}| = 4.29$) provide momentum and seasonal adjustment.
 - **Mathematical Additivity Verification:** For every evaluation sample, local additivity $f(x) = \phi_0 + \sum \phi_j(x)$ matched direct pipeline predictions within $5.91 \times 10^{-12}$ AQI points.
 
 Visual assets are archived in `reports/figures/`:
