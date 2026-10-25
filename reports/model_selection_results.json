@@ -1,0 +1,229 @@
+{
+  "designated_validation_period": {
+    "val_start": "2018-07-01",
+    "val_end": "2018-12-31",
+    "train_start": "2015-01-02",
+    "train_end": "2018-06-30"
+  },
+  "hyperparameter_tuning": {
+    "ridge": {
+      "selected_alpha": 100.0,
+      "tuning_records": [
+        {
+          "alpha": 0.1,
+          "mean_cv_mae": 36.9785,
+          "fold_maes": [
+            36.2572,
+            36.1384,
+            38.5399
+          ]
+        },
+        {
+          "alpha": 1.0,
+          "mean_cv_mae": 36.8588,
+          "fold_maes": [
+            36.2455,
+            35.8564,
+            38.4746
+          ]
+        },
+        {
+          "alpha": 5.0,
+          "mean_cv_mae": 36.5487,
+          "fold_maes": [
+            36.1953,
+            35.152,
+            38.2987
+          ]
+        },
+        {
+          "alpha": 10.0,
+          "mean_cv_mae": 36.3869,
+          "fold_maes": [
+            36.1387,
+            34.8335,
+            38.1886
+          ]
+        },
+        {
+          "alpha": 50.0,
+          "mean_cv_mae": 36.1392,
+          "fold_maes": [
+            35.9019,
+            34.4726,
+            38.0431
+          ]
+        },
+        {
+          "alpha": 100.0,
+          "mean_cv_mae": 36.0117,
+          "fold_maes": [
+            35.7812,
+            34.2074,
+            38.0465
+          ]
+        },
+        {
+          "alpha": 500.0,
+          "mean_cv_mae": 36.0701,
+          "fold_maes": [
+            36.0225,
+            34.0518,
+            38.1361
+          ]
+        }
+      ]
+    },
+    "random_forest": {
+      "selected_config": {
+        "n_estimators": 100,
+        "max_depth": 10,
+        "min_samples_split": 5
+      },
+      "tuning_records": [
+        {
+          "n_estimators": 50,
+          "max_depth": 8,
+          "min_samples_split": 10,
+          "mean_cv_mae": 31.3012,
+          "fold_maes": [
+            31.5186,
+            29.9076,
+            32.4775
+          ]
+        },
+        {
+          "n_estimators": 100,
+          "max_depth": 10,
+          "min_samples_split": 5,
+          "mean_cv_mae": 31.2605,
+          "fold_maes": [
+            31.3798,
+            29.8983,
+            32.5034
+          ]
+        },
+        {
+          "n_estimators": 100,
+          "max_depth": 14,
+          "min_samples_split": 5,
+          "mean_cv_mae": 31.4317,
+          "fold_maes": [
+            31.594,
+            29.9784,
+            32.7228
+          ]
+        }
+      ]
+    },
+    "histgbm": {
+      "selected_config": {
+        "learning_rate": 0.03,
+        "max_iter": 200,
+        "max_depth": 8,
+        "l2_regularization": 1.0
+      },
+      "tuning_records": [
+        {
+          "learning_rate": 0.05,
+          "max_iter": 100,
+          "max_depth": 6,
+          "l2_regularization": 1.0,
+          "mean_cv_mae": 32.2853,
+          "fold_maes": [
+            32.1419,
+            30.6824,
+            34.0316
+          ]
+        },
+        {
+          "learning_rate": 0.05,
+          "max_iter": 150,
+          "max_depth": 8,
+          "l2_regularization": 2.0,
+          "mean_cv_mae": 31.9838,
+          "fold_maes": [
+            31.6406,
+            30.3383,
+            33.9726
+          ]
+        },
+        {
+          "learning_rate": 0.03,
+          "max_iter": 200,
+          "max_depth": 8,
+          "l2_regularization": 1.0,
+          "mean_cv_mae": 31.9026,
+          "fold_maes": [
+            31.3145,
+            30.4362,
+            33.9572
+          ]
+        }
+      ]
+    }
+  },
+  "persistence_shared_metrics": {
+    "N": 2982,
+    "MAE": 29.6382,
+    "RMSE": 70.093,
+    "R2": 0.8313,
+    "MBE": -0.7522
+  },
+  "validation_evaluation_summary": {
+    "Ridge Regression": {
+      "model_shared": {
+        "N": 2982,
+        "MAE": 30.6482,
+        "RMSE": 62.0231,
+        "R2": 0.8679,
+        "MBE": 0.7114
+      },
+      "model_all_targets": {
+        "N": 3045,
+        "MAE": 31.1453,
+        "RMSE": 62.6066,
+        "R2": 0.8641,
+        "MBE": 0.5535
+      },
+      "improvement_mae_pct": -3.41,
+      "improvement_rmse_pct": 11.51
+    },
+    "Random Forest": {
+      "model_shared": {
+        "N": 2982,
+        "MAE": 27.3559,
+        "RMSE": 59.7368,
+        "R2": 0.8774,
+        "MBE": 3.0395
+      },
+      "model_all_targets": {
+        "N": 3045,
+        "MAE": 27.697,
+        "RMSE": 60.2944,
+        "R2": 0.8739,
+        "MBE": 2.7924
+      },
+      "improvement_mae_pct": 7.7,
+      "improvement_rmse_pct": 14.77
+    },
+    "HistGradientBoosting": {
+      "model_shared": {
+        "N": 2982,
+        "MAE": 28.1849,
+        "RMSE": 60.2068,
+        "R2": 0.8755,
+        "MBE": 3.0021
+      },
+      "model_all_targets": {
+        "N": 3045,
+        "MAE": 28.5898,
+        "RMSE": 60.976,
+        "R2": 0.8711,
+        "MBE": 2.7198
+      },
+      "improvement_mae_pct": 4.9,
+      "improvement_rmse_pct": 14.1
+    }
+  }
+}

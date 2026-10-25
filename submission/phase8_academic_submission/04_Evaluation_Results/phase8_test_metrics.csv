@@ -1,0 +1,8 @@
+Split,Model,Cohort,N,MAE,RMSE,R2,MBE,MAE_Improvement_%,RMSE_Improvement_%
+2019 Primary Test,Naive Persistence,Cohort A (Shared),6201,31.0419,70.236,0.7445,0.3614,0.0,0.0
+2019 Primary Test,Ridge Regression,Cohort A (Shared),6201,29.0261,55.8918,0.8382,2.8414,6.49,20.42
+2019 Primary Test,Ridge Regression (All Targets),Cohort B (Model-Only),6286,29.2377,56.9714,0.8342,2.6099,,
+2019 Primary Test,Random Forest,Cohort A (Shared),6201,26.2993,55.6234,0.8398,4.8666,15.28,20.81
+2019 Primary Test,Random Forest (All Targets),Cohort B (Model-Only),6286,26.5416,56.6428,0.8361,4.6363,,
+2019 Primary Test,HistGradientBoosting,Cohort A (Shared),6201,27.1402,54.9397,0.8437,5.6109,12.57,21.78
+2019 Primary Test,HistGradientBoosting (All Targets),Cohort B (Model-Only),6286,27.5456,57.193,0.8329,5.2529,,

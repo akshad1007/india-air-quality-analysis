@@ -1,0 +1,5 @@
+season,N,MAE,RMSE,MBE,Underprediction_Rate
+Monsoon,1994,19.6741,41.753,9.5623,37.96
+Post-Monsoon (Autumn),1029,28.5431,58.0494,2.8666,47.33
+Pre-Monsoon (Summer),1573,26.1613,50.7477,0.9673,46.41
+Winter,1605,33.227,71.4383,4.1367,45.36

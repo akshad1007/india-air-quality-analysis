@@ -1,0 +1,9 @@
+Split,Subset,Model,N,MAE,RMSE,R2,MBE,MAE_Improvement_%,RMSE_Improvement_%
+2019 Primary Test,Without Ahmedabad (17 Cities),Naive Persistence,5854,23.3264,37.4593,0.833,0.2004,0.0,0.0
+2019 Primary Test,Without Ahmedabad (17 Cities),Ridge Regression,5854,22.9684,33.5962,0.8657,2.8728,1.53,10.31
+2019 Primary Test,Without Ahmedabad (17 Cities),Random Forest,5854,19.2984,29.9717,0.8931,1.615,17.27,19.99
+2019 Primary Test,Without Ahmedabad (17 Cities),HistGradientBoosting,5854,20.4657,29.9585,0.8932,4.066,12.26,20.02
+2020 Stress Test,Without Ahmedabad (17 Cities),Naive Persistence,2952,18.5312,30.2588,0.7975,0.9024,0.0,0.0
+2020 Stress Test,Without Ahmedabad (17 Cities),Ridge Regression,2952,19.2564,27.0791,0.8378,7.1599,-3.91,10.51
+2020 Stress Test,Without Ahmedabad (17 Cities),Random Forest,2952,16.451,25.217,0.8593,3.3827,11.23,16.66
+2020 Stress Test,Without Ahmedabad (17 Cities),HistGradientBoosting,2952,18.5033,25.9693,0.8508,7.4571,0.15,14.18

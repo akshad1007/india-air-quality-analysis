@@ -31,3 +31,15 @@ Thumbs.db
 # Logs and Scratch Files
 *.log
 scratch/
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.lof
+*.lot
+*.out
+*.synctex.gz
+*.toc

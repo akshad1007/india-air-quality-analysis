@@ -1,0 +1,8 @@
+Model,Cohort,N,MAE,RMSE,R2,MAE_Improvement_%
+Naive Persistence,Cohort A (Shared),2982,29.6382,70.093,0.8313,0.0
+Ridge Regression,Cohort A (Shared),2982,30.6482,62.0231,0.8679,-3.41
+Ridge Regression (All Targets),Cohort B (Model-Only),3045,31.1453,62.6066,0.8641,
+Random Forest,Cohort A (Shared),2982,27.3559,59.7368,0.8774,7.7
+Random Forest (All Targets),Cohort B (Model-Only),3045,27.697,60.2944,0.8739,
+HistGradientBoosting,Cohort A (Shared),2982,28.1849,60.2068,0.8755,4.9
+HistGradientBoosting (All Targets),Cohort B (Model-Only),3045,28.5898,60.976,0.8711,

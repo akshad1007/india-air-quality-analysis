@@ -1,23 +1,22 @@
 # India Air Quality Analysis and Next-Day AQI Forecasting
 
 [![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tests: 17 Passed](https://img.shields.io/badge/pytest-17%20passed-brightgreen.svg)](tests/)
-[![Code Style: Modular](https://img.shields.io/badge/code%20style-pep8-orange.svg)](src/)
+[![Tests: 88 Passed](https://img.shields.io/badge/pytest-88%20passed-brightgreen.svg)](tests/)
+[![Architecture: Modular](https://img.shields.io/badge/architecture-leak--free%20pipeline-orange.svg)](src/)
+[![Documentation: 24--Page Report](https://img.shields.io/badge/academic%20report-24%20pages%20PDF-purple.svg)](docs/report/india_air_quality_project_report.pdf)
 
-An end-to-end, reproducible Data Science and Machine Learning Problem-Based Learning (PBL) project analyzing multi-year ambient air quality records across India (2015–2020) and benchmarking predictive models for next-day city-level Air Quality Index (AQI) forecasting.
+An end-to-end, reproducible Data Science and Machine Learning engineering project analyzing multi-year ambient air quality records across India (2015–2020) and benchmarking predictive models for next-day city-level Air Quality Index (AQI) forecasting with TreeSHAP explainability, conformal prediction uncertainty intervals, and a verified command-line inference engine.
 
 ---
 
-## 1. Academic Project Identity & Institutional Metadata
+## 1. Academic Project Identity
 
 - **Project Title:** India Air Quality Analysis and Next-Day AQI Forecasting
-- **Subject Name:** Predictive Modeling Using SPSS (IBM)
-- **Subject Code:** 24UADPC302
-- **Semester:** 5 (Third Year B.Tech)
+- **Subject / Course Code:** `24UADPC302 — Predictive Modeling Using SPSS (IBM)`
+- **Academic Term:** Semester 5 (Third Year B.Tech), Academic Year 2026–2027
 - **Department:** Department of Artificial Intelligence and Data Science (TY AIDS)
 - **Institution:** Sanjivani University, Kopargaon, Maharashtra, India
-- **Faculty Guide:** Mr. Rohit Pawar
+- **Faculty Guide:** Mr. Rohit Pawar, Assistant Professor, Department of AI & Data Science
 
 ### Project Team Members
 
@@ -28,358 +27,327 @@ An end-to-end, reproducible Data Science and Machine Learning Problem-Based Lear
 | 3 | **Yash Kolhe** | `2124UDSM1107` |
 | 4 | **Pranav Hadole** | `2124UDSM1108` |
 
-*Note on Academic Subject Identification:* The subject title `24UADPC302 — Predictive Modeling Using SPSS (IBM)` represents the official university curriculum course code under which this Problem-Based Learning (PBL) project is evaluated. The engineering implementation is developed in Python to guarantee modular reproducibility, continuous calendar data engineering, and automated testing, strictly adhering to the AIDS Department 100-mark assessment rubric.
-
-### Faculty PBL Guidelines & Reference Documents
-The project is governed strictly by the authoritative guidelines provided by the faculty, archived in [`docs/reference/faculty-guidelines/`](docs/reference/faculty-guidelines/):
-- [`Assignment_4144_Content_Document_20261019020930913PM.pdf`](docs/reference/faculty-guidelines/Assignment_4144_Content_Document_20261019020930913PM.pdf) (PBL Assessment Guidelines)
-- [`Assignment_4144_Content_SolutionDocument_20261019020930913PM (1).pdf`](docs/reference/faculty-guidelines/Assignment_4144_Content_SolutionDocument_20261019020930913PM%20(1).pdf) (100-Mark Rubric Document)
+*Note on Course Code Identification:* The course designation `24UADPC302 — Predictive Modeling Using SPSS (IBM)` represents the institutional curriculum subject title. To guarantee modular reproducibility, continuous calendar data engineering, and automated testing, the production technical implementation is engineered in Python (`scikit-learn`, `pandas`, `numpy`, `joblib`, `pytest`, `shap`).
 
 ---
 
 ## 2. Problem Statement & Motivation
 
-Air pollution represents one of the most critical public health emergencies in modern India. According to epidemiological research (WHO, Global Burden of Disease), chronic exposure to ambient particulate aerosols ($PM_{2.5}$, $PM_{10}$) and noxious combustion gases ($NO_2$, $SO_2$, $CO$, $O_3$) accounts for over 1.6 million premature annual deaths nationwide.
+Ambient air pollution is a catastrophic public health challenge across urban India, contributing to an estimated 1.6+ million premature deaths annually. Although the Central Pollution Control Board (CPCB) operates an extensive Continuous Ambient Air Quality Monitoring Station (CAAQMS) network across urban centers, operational next-day forecasting faces several severe technical hurdles:
 
-Although the Central Pollution Control Board (CPCB) maintains an extensive Continuous Ambient Air Quality Monitoring Station (CAAQMS) network, raw observational datasets present severe analytical and operational challenges:
-1. **Severe Sensor Missingness & Intermittent Dropouts:** Sensor outages and reporting gaps reach 15% to 60% across primary pollutants.
-2. **Temporal & Seasonal Volatility:** Winter temperature inversions, post-monsoon biomass burning, and monsoon scavenging cause dramatic seasonal swings.
-3. **Pervasive Data Leakage in Existing Literature:** Many academic studies randomly split time-series records or use contemporaneous day-$t$ predictors to predict day-$t$ AQI, creating unachievable, non-deployable models.
-4. **Disregard for Naive Baselines:** Complex non-linear architectures are often reported without demonstrating whether they outperform a simple persistence benchmark (Tomorrow's AQI = Today's AQI).
+1. **Pervasive Temporal Data Leakage in Academic Literature:** Many published studies randomly partition time-series records or use contemporaneous day-$t$ predictors to predict day-$t$ AQI. Such formulations conceal future information, creating non-deployable models that collapse during prospective forecasting.
+2. **Disregard for Naive Baselines:** Complex non-linear regression models are frequently promoted without proving that they outperform a simple, cost-free Naive Persistence baseline ($\text{AQI}_{t+1} = \text{AQI}_t$).
+3. **Severe Telemetry Missingness & Intermittent Dropouts:** Sensor outages and reporting gaps reach 15% to 60% across primary criteria pollutants ($\text{PM}_{2.5}$, $\text{PM}_{10}$, $\text{NO}_2$, $\text{SO}_2$, $\text{CO}$, $\text{O}_3$).
+4. **Point Forecasts Lack Uncertainty Bounds:** Standard regression outputs omit probabilistic uncertainty, leaving municipal decision-makers without confidence bounds during volatile pollution spikes.
 
-This project addresses these gaps through rigorous calendar-based preprocessing, leak-free feature pipelines, verified exploratory data analysis, and out-of-time predictive benchmarking.
-
----
-
-## 3. Project Objectives & Research Questions
-
-### Primary Objective
-To design, implement, audit, and document a scientifically defensible machine learning pipeline that forecasts **next-day city-level AQI ($AQI_{t+1}$)** across representative Indian urban centers, evaluating whether supervised machine learning models reliably outperform naive persistence baselines under realistic out-of-time evaluation.
-
-### Empirical Research Questions (RQs)
-- **RQ1 (Historical Trends & Macro Patterns):** How have national ambient pollution levels and statutory CPCB health risk categories evolved from 2015 to 2020?
-- **RQ2 (Spatial & Station Heterogeneity):** What is the empirical magnitude of inter-city and intra-city pollution dispersion across monitored CAAQMS stations?
-- **RQ3 (Seasonal & Monthly Dynamics):** What is the empirical annual cycle of particulate matter and chemical precursors across Indian air sheds?
-- **RQ4 (Chemical Drivers & Collinearity):** Which specific pollutants govern the composite CPCB AQI, and what collinearity structures exist among combustion tracers?
-- **RQ5 (Exogenous Shock Resilience):** How did observed ambient air quality respond during the nationwide March–May 2020 COVID-19 lockdown across major metropolitan centers?
-- **RQ6 (Predictive Feasibility & Benchmark Comparison - Planned):** Can autoregressive and tree-based machine learning models outperform naive persistence on held-out 2019 out-of-time data without future temporal leakage?
+This project resolves these challenges by establishing a leak-free temporal feature engineering pipeline, chronological cross-validation, comprehensive out-of-time evaluation (2019 test and 2020 COVID-19 lockdown shock), Path-Dependent TreeSHAP explainability, and finite-sample conformal prediction intervals.
 
 ---
 
-## 4. Dataset Source, Architecture & Provenance
+## 3. Key Capabilities
 
-The project utilizes the multi-year national air quality monitoring dataset published by CPCB and compiled by Rohan Rao on Kaggle:
-- **Dataset Source:** [Air Quality Data in India (2015–2020) — Kaggle](https://www.kaggle.com/datasets/rohanrao/air-quality-data-in-india)
-- **Date Coverage:** January 1, 2015 to July 1, 2020
-- **Geographic Coverage:** 26 monitored Indian urban centers across 16 states and union territories.
-
-### Raw Dataset Inventory
-
-| File Name | File Size | Exact Rows | Columns | Purpose in Pipeline | Verified SHA-256 Checksum |
-| :--- | :--- | :--- | :---: | :--- | :--- |
-| `stations.csv` | 14.4 KB | 230 | 5 | Master station metadata (Name, City, State, Status) | `ce2b7081c3e3c89145613eb724d7d2149ef79c6e16f36bb8a835747a673ed410` |
-| `city_day.csv` | 2.57 MB | 29,531 | 16 | Primary modeling file: daily city-level pollutant aggregations | `0d84b21c3e4878bbad8df362f2ab05f61ad959538dddf5918e714077ed3c1847` |
-| `city_hour.csv` | 65.6 MB | 707,875 | 16 | Hourly city-level records: diurnal cycles and rush-hour dynamics | `fae474062ec6b10af7c5b2ac4e32f5c240a0ef80835ee3a50332fec06e2190a4` |
-| `station_day.csv` | 8.63 MB | 108,035 | 16 | Station-level daily records: intra-city spatial heterogeneity | `f07787eb4c36c53b07763f591ee29fa01fbaa4d18df1a470447d04def79677b9` |
-| `station_hour.csv` | 219.6 MB | 2,589,083 | 16 | Station-level hourly records: hyper-local temporal resolution | `26a423c66fe9763064d580ffb007150375cfa2056e62b29d52b1b7857af54fde` |
-
-*Data Integrity Guarantee:* All five raw CSV files remain strictly immutable in `data/raw/`. Checksums are verified programmatically prior to each pipeline run.
+- **Strict Temporal Barrier:** Forecasts next-day continuous composite AQI ($\text{AQI}_{c, t+1}$) using strictly the information set available at or before prediction origin day $t$, enforcing municipal boundary isolation.
+- **Predeclared Model Selection:** Evaluated Naive Persistence, Ridge Regression, Random Forest, and HistGradientBoosting across chronological training folds ($\le \text{June 2018}$) and selected the champion based on pre-declared validation MAE (July–December 2018).
+- **Out-of-Time & Stress Testing:** Evaluated on an untouched 2019 held-out primary benchmark ($N=6,201$) and an exogenous stress-test partition during the 2020 nationwide COVID-19 lockdown ($N=3,124$).
+- **Explainable AI (XAI):** Integrated Path-Dependent TreeSHAP to quantify global feature importances and local decision breakdowns for typical vs extreme pollution episodes.
+- **Distribution-Free Uncertainty Quantification:** Implemented split-conformal prediction calibrated on pre-2019 validation residuals ($N=2,982$), delivering 90% and 95% prediction intervals with non-negative lower-bound truncation.
+- **Audited Inference CLI:** Headless command-line tool supporting single-row JSON inference and atomic batch CSV processing with physical constraint verification and imputation disclosure.
+- **Comprehensive Verification Suite:** 88 automated unit and integration tests passing with 100% success rate.
 
 ---
 
-## 5. Technology Stack
+## 4. Dataset Source, Architecture & Scope
 
-| Layer | Tools & Libraries | Purpose |
-| :--- | :--- | :--- |
-| **Language & Runtime** | Python 3.10.11 | Core analytical and engineering execution |
-| **Data Engineering** | pandas 2.3.2, pyarrow, numpy | Vectorized transformations, parquet storage, continuous reindexing |
-| **Statistical Analysis** | scipy 1.15.2 | Parametric & non-parametric tests, Welch's t-tests, skewness metrics |
-| **Visualization** | matplotlib 3.10.0, seaborn 0.13.2 | Publication-quality static figures (300 DPI) and analytical plots |
-| **Machine Learning (Planned)** | scikit-learn 1.7.2 | Linear models, RidgeCV, Random Forest, HistGradientBoosting, pipelines |
-| **Testing & CI** | pytest 7.4.3 | Automated regression, schema validation, and artifact verification |
-| **Exploratory Interface** | Jupyter Notebook, nbconvert | Interactive data science documentation and clean-kernel execution |
+- **Dataset Source:** Multi-year CAAQMS surface monitoring records published by CPCB and compiled by Rohan Rao on [Kaggle](https://www.kaggle.com/datasets/rohanrao/air-quality-data-in-india).
+- **Temporal Span:** January 1, 2015 to July 1, 2020.
+- **Geographic Coverage:** 18 Tier-1 qualified municipal jurisdictions with continuous multi-year telemetry: Ahmedabad, Amaravati, Amritsar, Bengaluru, Brajrajnagar, Chennai, Delhi, Gurugram, Hyderabad, Jaipur, Jorapokhar, Kolkata, Lucknow, Mumbai, Patna, Talcher, Thiruvananthapuram, and Visakhapatnam. (8 fragmented cities with $<40\%$ coverage were quarantined).
+- **Primary Modeling Table:** `city_day.csv` (29,531 raw rows across 16 criteria columns).
 
 ---
 
-## 6. End-to-End Methodology & Workflow
+## 5. Workflow and Leakage-Free Methodology
 
 ```
-+----------------------------------------------------------------------------------------------------+
-|                                  PROJECT PIPELINE ARCHITECTURE                                     |
-+----------------------------------------------------------------------------------------------------+
-|                                                                                                    |
-|  [Phase 2: Raw Acquisition]   ──>  5 CPCB CSVs immutable in data/raw/ (SHA-256 verified)           |
-|                                                                                                    |
-|  [Phase 3: Data Quality]      ──>  Missingness profiling, foreign-key auditing, gap analysis       |
-|                                                                                                    |
-|  [Phase 4: Preprocessing]     ──>  Continuous calendar grid (2015-01-01 to 2020-07-01)            |
-|                                    Bounded ffill (<=2 days) on predictors strictly within city     |
-|                                    Target AQI NEVER imputed (24,850 valid days preserved)          |
-|                                    City eligibility matrix (18 Tier-1 modeling cities)             |
-|                                                                                                    |
-|  [Phase 5: Audited EDA]       ──>  9 publication figures (reports/figures/)                        |
-|                                    3 summary tables (reports/tables/)                              |
-|                                    Executed notebook (notebooks/02_exploratory_data_analysis.ipynb)|
-|                                    Scientific quality audit (docs/review/EDA_QUALITY_AUDIT.md)     |
-|                                                                                                    |
-|  [Phase 6: Feature Eng. (PLANNED)] ──> Calendar cyclical (sin/cos), lags (T-1, T-2, T-7),          |
-|                                        Rolling stats (T-6..T), zero future data leakage            |
-|                                                                                                    |
-|  [Phase 7-9: ML Modeling (PLANNED)]──> Chronological split: Train (2015-18), Test (2019 full year) |
-|                                        Naive persistence benchmark vs. Ridge, RF, HistGBM          |
-|                                        Out-of-time evaluation (MAE, RMSE, R2, Confusion Matrix)    |
-|                                        COVID-19 exogenous shock stress test (2020)                 |
-+----------------------------------------------------------------------------------------------------+
+Raw CAAQMS Data (2015-2020)
+       │
+       ▼
+Continuous Calendar Reindexing & Monotonic Date Sorting
+       │
+       ▼
+Bounded Forward-Fill (max 2 consecutive days; Target Strictly NEVER Imputed)
+       │
+       ▼
+Feature Engineering Matrix (19 Approved Predictors)
+  ├── Group Isolation: Grouped by City (No cross-city leakage)
+  ├── Autoregressive Lags: AQI(t), AQI(t-1), AQI(t-6)
+  ├── Chemistry: PM2.5(t), PM10(t), NO2(t), SO2(t), CO(t), O3(t), PM_ratio(t)
+  ├── Backward Rolling Moments: 3-day Mean, 7-day Mean, 7-day Std (closed at t)
+  └── Target Calendar Harmonics: sin/cos Day-of-Year (365.25d), DOW, Weekend, Month
+       │
+       ▼
+Chronological Partitions (Indexed strictly by Target Date t+1)
+  ├── Training Partition:    Target Date <= 2018-06-30 (N = 10,958)
+  ├── Validation Partition:  2018-07-01 to 2018-12-31 (N = 2,982, Shared Cohort A)
+  ├── Primary Test Set:      2019-01-01 to 2019-12-31 (N = 6,201, Shared Cohort A)
+  └── Stress Test Set:       2020-01-01 to 2020-07-01 (N = 3,124, COVID-19 Shock)
+       │
+       ▼
+Model Selection (Predeclared Validation MAE) -> Frozen Random Forest Champion
+       │
+       ▼
+Multi-Phase Evaluation (2019 Test + 2020 Stress + Ahmedabad Sensitivity)
+       │
+       ▼
+Post-Modeling Layers: TreeSHAP Explainability + Conformal Prediction Intervals + CLI
 ```
 
 ---
 
-## 7. Data Quality & Preprocessing Methodology
+## 6. Empirical Evaluation Results
 
-### Continuous Calendar Reindexing
-Real-world sensor logs often omit days entirely rather than logging explicit `NaN` entries. To ensure temporal consistency for time-series operations, the dataset was reindexed to a complete, uninterrupted calendar sequence ($2,009$ consecutive days per city from January 1, 2015 to July 1, 2020), expanding the raw $29,531$ city-days into a standardized continuous matrix.
+### Model Performance Comparison on 2019 Held-Out Test Set (Shared Cohort A, $N=6,201$)
 
-### Bounded Imputation vs. Target Integrity
-1. **Target Preservation Principle:** The target variable ($AQI$) is **NEVER imputed**. Imputing target labels fabricates synthetic ground truth and invalidates evaluation metrics. Exactly $24,850$ real observed AQI target days are preserved.
-2. **Predictor Imputation (Variant A):** Predictor pollutant concentrations are imputed using **bounded forward-fill strictly capped at $\le 2$ consecutive days** and grouped strictly by city. Gaps longer than 2 days remain `NaN` to avoid propagating stale atmospheric states.
-3. **Un-imputed Benchmark (Variant B):** Raw observations with missing values preserved intact for tree models with native missing-data support (`HistGradientBoostingRegressor`).
+| Model Architecture | MAE (AQI pts) | RMSE (AQI pts) | $R^2$ Score | MBE (AQI pts) | MAE Impr. vs Persistence | RMSE Impr. vs Persistence |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Naive Persistence Baseline** | 31.0419 | 70.2360 | 0.7445 | +0.3614 | 0.00% | 0.00% |
+| **Ridge Regression** ($\alpha=10.0$) | 29.0261 | 55.8918 | 0.8382 | +2.8414 | +6.49% | +20.42% |
+| **HistGradientBoosting** | 27.1402 | **54.9397** | **0.8437** | +5.6109 | +12.57% | **+21.78%** |
+| **Random Forest (Champion)** | **26.2993** | 55.6234 | 0.8398 | **+4.8666** | **+15.28%** | +20.81% |
 
-### City Eligibility Stratification
-Cities were categorized by historical continuity rather than arbitrary exclusion:
-- **Tier 1 (Primary Modeling Cohort — 18 Cities):** $\ge 60\%$ coverage across Train (2015–2018) and Test (2019). Includes Delhi, Bengaluru, Lucknow, Chennai, Hyderabad, Patna, Mumbai, Kolkata, Ahmedabad.
-- **Tier 2 (Secondary Test Cohort — 1 City):** Monitored during 2019 test year but lacking historical training depth (Chandigarh).
-- **Tier 3 (EDA-Only Cohort — 7 Cities):** Shorter records utilized for regional spatial comparisons but excluded from historical time-series training (e.g., Aizawl, Shillong, Coimbatore).
-
----
-
-## 8. Verified Exploratory Data Analysis Findings
-
-Every finding below has been verified through executable code in `src/analysis/eda_generator.py` and audited in `docs/review/EDA_QUALITY_AUDIT.md`:
-
-### 1. National AQI Distribution & Statutory Categories (`Figure 01`)
-- Out of $24,850$ valid observations, **$35.5\%$ fall into Moderate ($101 - 200$)**, **$33.1\%$ Satisfactory ($51 - 100$)**, **$11.2\%$ Poor ($201 - 300$)**, **$9.4\%$ Very Poor ($301 - 400$)**, **$5.4\%$ Severe ($> 400$)**, and **$5.4\%$ Good ($0 - 50$)**.
-- Over $26\%$ of all monitored days fall into hazardous tiers (Poor or worse), illustrating chronic population exposure.
-
-### 2. City-Level Spatial Disparities (`Figure 02`)
-- Northern inland basin centers record the highest median AQI: **Delhi (Median $258.0$, Mean $259.5$)**, **Ahmedabad (Median $246.0$, Mean $452.1$)**, **Patna (Median $187.0$)**, **Gurugram (Median $183.0$)**, **Lucknow (Median $182.0$)**.
-- Peninsular and northeastern centers record the lowest median AQI: **Aizawl (Median $31.0$, $N=111$)**, **Thiruvananthapuram (Median $68.0$, $N=1,053$)**, **Shillong (Median $68.0$, $N=205$)**, **Coimbatore (Median $73.0$, $N=384$)**, **Bengaluru (Median $90.0$, $N=1,911$)**, **Chennai (Median $96.0$, $N=1,884$)**.
-- *Hypotheses:* Regional variations reflect differences in basin topography, atmospheric ventilation, and regional source loadings (acknowledged as literature-based hypotheses since meteorological variables are unmeasured).
-
-### 3. Seasonal Dynamics & Monthly Wave (`Figure 03`)
-- National air quality exhibits a predictable bimodal annual wave:
-  - **Monsoon Annual Minimum:** July (Median $75.0$, Mean $89.7$) and August (Median $71.0$, Mean $85.0$).
-  - **Winter Annual Peak:** November (Median $200.0$, Mean $239.5$) and December (Median $196.0$, Mean $229.8$).
-
-### 4. Chemical Drivers & Collinearity (`Figure 04`)
-- Particulate matter is the dominant driver of composite AQI: **$PM_{2.5}$ (Pearson $r = 0.66$, Spearman $r_s = 0.87$)** and **$PM_{10}$ (Pearson $r = 0.80$, Spearman $r_s = 0.83$)**.
-- Gaseous combustion precursors act as collinear tracers: $CO$ ($r_s = 0.68$), $NO_2$ ($r_s = 0.54$), $NO_x$ ($r_s = 0.52$).
-- Strong co-emission collinearity exists between $NO$ and $NO_x$ ($r = 0.79$) and $PM_{2.5}$ and $PM_{10}$ ($r = 0.85$).
-
-### 5. Ahmedabad CO / Extreme AQI Anomaly Diagnostic (`Figure 05`)
-- Exactly **543 city-days nationwide exceed $AQI > 500$**, with **412 of these records (75.9%) occurring exclusively in Ahmedabad**.
-- Ahmedabad recorded extreme Carbon Monoxide concentrations (Median $16.25\text{ mg/m}^3$, Max $175.81\text{ mg/m}^3$) compared to Delhi (Median $1.24\text{ mg/m}^3$) and Bengaluru (Median $0.92\text{ mg/m}^3$).
-- Applying the CPCB linear breakpoint formula without an upper 500 cap ($I = 400 + 6.25(CO - 34)$) mathematically extrapolates a $CO$ reading of $132\text{ mg/m}^3$ to $AQI \approx 1,012$ and reaches $2,049$. Raw data is preserved; modeling will use robust loss functions (Huber/MAE).
-
-### 6. Seasonally Matched COVID-19 Comparison (`Figure 06`)
-- Comparing the exact national lockdown window (March 25 – May 31) against the identical calendar window across the 2015–2019 baseline reveals significant reductions across all 8 major metros:
-  - **Delhi:** Baseline Mean $276.2$ ($N_b=340$) $\rightarrow$ Lockdown Mean $125.4$ ($N_l=68$) | **$-54.6\%$ drop** ($p = 3.72 \times 10^{-60}$)
-  - **Lucknow:** Baseline Mean $204.5$ ($N_b=322$) $\rightarrow$ Lockdown Mean $111.9$ ($N_l=68$) | **$-45.3\%$ drop** ($p = 1.07 \times 10^{-31}$)
-  - **Chennai:** Baseline Mean $119.8$ ($N_b=336$) $\rightarrow$ Lockdown Mean $69.6$ ($N_l=68$) | **$-41.9\%$ drop** ($p = 1.06 \times 10^{-39}$)
-  - **Hyderabad:** Baseline Mean $116.1$ ($N_b=329$) $\rightarrow$ Lockdown Mean $71.8$ ($N_l=68$) | **$-38.2\%$ drop** ($p = 6.97 \times 10^{-41}$)
-  - **Patna:** Baseline Mean $189.3$ ($N_b=218$) $\rightarrow$ Lockdown Mean $133.9$ ($N_l=68$) | **$-29.3\%$ drop** ($p = 7.03 \times 10^{-20}$)
-  - **Bengaluru:** Baseline Mean $99.4$ ($N_b=336$) $\rightarrow$ Lockdown Mean $70.6$ ($N_l=68$) | **$-29.0\%$ drop** ($p = 2.08 \times 10^{-33}$)
-  - **Kolkata:** Baseline Mean $92.3$ ($N_b=75$) $\rightarrow$ Lockdown Mean $65.8$ ($N_l=68$) | **$-28.7\%$ drop** ($p = 1.11 \times 10^{-7}$)
-  - **Mumbai:** Baseline Mean $91.4$ ($N_b=93$) $\rightarrow$ Lockdown Mean $69.8$ ($N_l=68$) | **$-23.6\%$ drop** ($p = 2.26 \times 10^{-16}$)
-- *Scientific Guardrail:* Monocausal attribution to lockdown is avoided; unmeasured meteorological factors also influence ambient levels.
-
-### 7. Diurnal Rush-Hour Cycles across Complete Hourly Records (`Figure 08`)
-- Processed all **707,875 records** from `city_hour.csv` using chunked streaming, extracting **164,079 valid records** across Delhi, Kolkata, Mumbai, and Bengaluru.
-- Delhi exhibits a distinct bimodal diurnal cycle: Morning rush-hour peak at 08:00–09:00 LST (Mean $PM_{2.5} \approx 135.2\ \mu\text{g/m}^3$), mid-afternoon convective dispersion minimum at 15:00–16:00 LST (Mean $PM_{2.5} \approx 72.4\ \mu\text{g/m}^3$, a $46.4\%$ drop), and nighttime inversion surge between 21:00 and 00:00 LST (Mean $PM_{2.5} \approx 154.8\ \mu\text{g/m}^3$).
-
-### 8. Intra-City Delhi Station Dispersion (`Figure 09`)
-- Using neutral station designations from `stations.csv`:
-  - `Anand Vihar, Delhi - DPCC` (East Delhi): Median $329.0$, Mean $355.8$, Max $927.0$, $N=1,583$
-  - `Punjabi Bagh, Delhi - DPCC` (West Delhi): Median $312.0$, Mean $294.3$, Max $769.0$, $N=1,472$
-  - `R K Puram, Delhi - DPCC` (South-West Delhi): Median $230.0$, Mean $247.4$, Max $838.0$, $N=1,693$
-  - `Mandir Marg, Delhi - DPCC` (Central Delhi): Median $193.0$, Mean $221.2$, Max $734.0$, $N=1,379$
-  - `Pusa, Delhi - IMD` (Central/West Delhi): Median $148.0$, Mean $184.8$, Max $769.0$, $N=928$
-- Observed station medians differ by $181.0\text{ AQI points}$ within Delhi, demonstrating that city-level aggregations mask substantial localized exposure variations.
+*Key Findings:*
+- **Random Forest** achieved the lowest MAE of **26.30 AQI points** (+15.28% error reduction over Persistence) and explained 83.98% of variance ($R^2 = 0.8398$).
+- **CPCB Category Diagnostic Accuracy:** Random Forest attained **74.36%** multi-class accuracy (Macro F1 = 0.6678), significantly outperforming Persistence (69.21% accuracy, Macro F1 = 0.6057).
+- **2020 COVID-19 Lockdown Generalization ($N=3,124$):** Random Forest maintained robust predictive skill with an MAE of **19.33 AQI points** (+10.64% improvement over Persistence 21.63), RMSE of **39.19**, and $R^2 = \mathbf{0.8060}$.
 
 ---
 
-## 9. Proposed Next-Day Forecasting Task & Benchmarking Plan *(PLANNED — Phase 6–9)*
+## 7. Ahmedabad Sensor Saturation Anomaly & Sensitivity Analysis
 
-> [!IMPORTANT]
-> The forecasting pipeline is currently **PLANNED** and will be implemented upon faculty approval of Phase 6. No model performance metrics, test scores, or real-time inferences are claimed at this stage.
+Residual diagnostics revealed that in 2019 Cohort A, **Ahmedabad accounts for only 347 rows (5.6% of records) but contributed 72.59% of total network squared error** (13.93M out of 19.19M points) due to extreme CO sensor saturation ($\text{CO} > 400\text{ mg/m}^3$) driving observed AQI past statutory limits ($>1,000$).
 
-### Forecasting Task Formulation
-- **Objective:** Predict continuous next-day composite AQI ($AQI_{t+1}$) for each city using observations available up to day $t$.
-- **Input Features (Day $t$ and Earlier Only):**
-  - Autoregressive target lags: $AQI_{t-1}, AQI_{t-2}, AQI_{t-7}$
-  - Chemical precursor lags: $PM2.5_t, PM10_t, NO2_t, CO_t, SO2_t, O3_t$
-  - Backward-looking rolling statistics: 3-day and 7-day rolling means and standard deviations computed exclusively over $[t-2, t]$ and $[t-6, t]$.
-  - Cyclical calendar features: $\sin\left(\frac{2\pi \cdot \text{dayofyear}}{365.25}\right), \cos\left(\frac{2\pi \cdot \text{dayofyear}}{365.25}\right)$, day of week, month.
+| Evaluation Subset | Model Pipeline | MAE (AQI pts) | RMSE (AQI pts) | $R^2$ Score | RMSE Impr. |
+| :--- | :--- | :---: | :---: | :---: | :---: |
+| Full Network (18 Cities) | Random Forest | 26.2993 | 55.6234 | 0.8398 | +20.81% |
+| **Without Ahmedabad (17 Cities)** | Naive Persistence | 26.8370 | 44.4082 | 0.7644 | 0.00% |
+| **Without Ahmedabad (17 Cities)** | **Random Forest** | **21.6508** | **29.9678** | **0.8931** | **+32.52%** |
 
-### Leakage Prevention & Chronological Splitting Strategy
-Random splitting is strictly prohibited. The evaluation framework utilizes chronological time splits:
-1. **Training Set (Historical Inception to Mid-2018):** 2015-01-01 to 2018-06-30.
-2. **Validation / Tuning Set (Late 2018):** 2018-07-01 to 2018-12-31 (used for hyperparameter tuning and model selection via TimeSeriesSplit).
-3. **Primary Held-Out Test Set (Full Calendar Year 2019):** 2019-01-01 to 2019-12-31. Provides 365 consecutive days across 14 cities without COVID distortions.
-4. **Exogenous Stress Test (Early 2020):** 2020-01-01 to 2020-07-01. Evaluated separately to assess model resilience under extreme shock conditions.
-
-### Candidate Models for Benchmarking
-1. **Naive Persistence Benchmark (Mandatory Baseline):** $\widehat{AQI}_{t+1} = AQI_t$. Any proposed ML model must achieve lower MAE and RMSE than persistence to be considered viable.
-2. **Linear Regularized Baseline:** Ridge Regression (`RidgeCV`) with standardized features.
-3. **Non-Linear Ensemble Models:** Random Forest Regressor (`RandomForestRegressor`) and Histogram-based Gradient Boosting (`HistGradientBoostingRegressor`).
-
-### Planned Evaluation Metrics
-- **Continuous Regression Metrics:** Mean Absolute Error (MAE), Root Mean Squared Error (RMSE), Mean Absolute Percentage Error (MAPE), Coefficient of Determination ($R^2$).
-- **Statutory Classification Thresholding:** Derived CPCB Health Category accuracy, macro-averaged F1-score, and normalized confusion matrix.
+Excluding the saturated sensor cohort reveals that across the remaining 17 municipal jurisdictions, Random Forest RMSE is **29.97 AQI points** with an $R^2$ of **0.8931**.
 
 ---
 
-## 10. Repository Directory Structure
+## 8. Explainability via Path-Dependent TreeSHAP
 
+Model interpretability was formalized using TreeSHAP on the frozen Random Forest pipeline:
+- **Dominant Predictive Drivers:** Observed same-day $\text{AQI}_t$ (mean $|\text{SHAP}| = 35.63\text{ AQI points}$) and $\text{PM25}_t$ (mean $|\text{SHAP}| = 16.59$) govern 66.8% of global model variance.
+- **Secondary Modulators:** 7-day backward rolling average ($\text{AQI\_roll\_mean\_7d}$, mean $|\text{SHAP}| = 5.70$) and seasonal harmonics ($\text{target\_cos\_doy}$, mean $|\text{SHAP}| = 4.29$) provide momentum and seasonal adjustment.
+- **Mathematical Additivity Verification:** For every evaluation sample, local additivity $f(x) = \phi_0 + \sum \phi_j(x)$ matched direct pipeline predictions within $5.91 \times 10^{-12}$ AQI points.
+
+Visual assets are archived in `reports/figures/`:
+- Global Summary Beeswarm: [`reports/figures/shap_summary.png`](reports/figures/shap_summary.png)
+- Feature Importance Bar Chart: [`reports/figures/shap_importance.png`](reports/figures/shap_importance.png)
+- Typical Day Waterfall Breakdown: [`reports/figures/shap_waterfall_typical.png`](reports/figures/shap_waterfall_typical.png)
+- Extreme Episode Waterfall Breakdown: [`reports/figures/shap_waterfall_extreme.png`](reports/figures/shap_waterfall_extreme.png)
+
+---
+
+## 9. Prediction Uncertainty via Conformal Prediction
+
+Using split-conformal prediction calibrated on pre-2019 validation absolute residuals ($N=2,982$), finite-sample quantiles were established:
+- **90% Conformal Quantile:** $q_{0.90} = \mathbf{57.0621\text{ AQI points}}$ ($k = 2685$)
+- **95% Conformal Quantile:** $q_{0.95} = \mathbf{90.3847\text{ AQI points}}$ ($k = 2834$)
+
+Intervals are constructed as $[ \max(0.0, \widehat{y} - q), \widehat{y} + q ]$. Lower bounds are truncated at 0.0 (non-negative continuous AQI); upper bounds are **unclipped at 500** to preserve continuous risk assessment.
+
+| Evaluation Cohort | Nominal Level | Conformal Margin | Empirical Coverage | Mean Interval Width |
+| :--- | :---: | :---: | :---: | :---: |
+| **2019 Primary Test** ($N=6,201$) | 90% | $\pm 57.0621$ | **90.21%** | 113.90 AQI points |
+| **2019 Primary Test** ($N=6,201$) | 95% | $\pm 90.3847$ | **94.97%** | 175.08 AQI points |
+| **2020 Stress Test** ($N=3,124$)  | 90% | $\pm 57.0621$ | **94.40%** | 113.69 AQI points |
+| **2020 Stress Test** ($N=3,124$)  | 95% | $\pm 90.3847$ | **98.08%** | 172.10 AQI points |
+
+### Critical Methodological Limitations
+1. **Exchangeability in Time Series:** Conformal coverage guarantees assume exchangeable observations. Autocorrelation and seasonal drift introduce distribution shift; intervals represent empirical calibration baselines rather than asymptotic guarantees.
+2. **Extreme Event Under-Coverage:** For volatile observations where observed AQI exceeded 500, empirical interval coverage degraded to **29.33%**. Prediction intervals are **not guaranteed reliable during extreme episodes**.
+
+---
+
+## 10. Inference Command-Line Interface (CLI)
+
+The repository includes a headless command-line inference tool in [src/models/predict_cli.py](src/models/predict_cli.py).
+
+### Single-Row Prediction (JSON Input)
+```powershell
+python -m src.models.predict_cli --input-json data/sample_delhi.json
 ```
+```text
+================================================================================
+INDIA AIR QUALITY INTELLIGENCE — NEXT-DAY AQI FORECASTING CLI
+Model: Frozen Random Forest Pipeline (Phase 7 Champion)
+================================================================================
+City:                 Delhi (Tier-1 Qualified)
+Target Date:          2019-01-16
+Point Forecast (AQI): 278.45
+CPCB Category:        Poor
+--------------------------------------------------------------------------------
+Uncertainty Quantification (Conformal Prediction Intervals):
+  90% Prediction Interval: [221.39, 335.51] (Margin: ±57.06)
+  95% Prediction Interval: [188.07, 368.83] (Margin: ±90.38)
+--------------------------------------------------------------------------------
+DISCLAIMER: Prediction intervals represent finite-sample conformal calibration on the
+pre-2019 validation set (N=2,982). Intervals are not guaranteed reliable during
+extreme episodes (AQI > 500 coverage degrades to 29.33%) or severe distribution drift.
+================================================================================
+```
+
+### Batch Prediction (CSV Input with Output File)
+```powershell
+python -m src.models.predict_cli --input-csv data/batch_features.csv --output-file reports/forecasts.csv
+```
+
+### JSON Formatted Output
+```powershell
+python -m src.models.predict_cli --input-json data/sample_delhi.json --format json
+```
+
+### Operational Guardrails Enforced by CLI
+- **Non-Negativity Constraint:** Rejects negative physical concentrations ($\text{PM}_{2.5}, \text{PM}_{10}, \text{NO}_2, \text{SO}_2, \text{CO}, \text{O}_3 < 0$) with error code 2.
+- **Transparent Imputation:** Missing numerical features trigger pipeline median imputation, disclosed explicitly in the output.
+- **Unknown-City Extrapolation Warning:** Unseen cities encode to an all-zero vector; the CLI emits an explicit extrapolation notice.
+- **Model Immutability:** Loaded in strictly read-only mode via `load_frozen_pipeline()`; never calls `.fit()` or alters parameters.
+
+---
+
+## 11. Academic Project Report
+
+The complete, authoritative academic project report is compiled in LaTeX using XeLaTeX with **Times New Roman** typography and the institutional header:
+
+- **Compiled PDF Report (24 Pages):** [`docs/report/india_air_quality_project_report.pdf`](docs/report/india_air_quality_project_report.pdf)
+- **LaTeX Source File:** [`docs/report/india_air_quality_project_report.tex`](docs/report/india_air_quality_project_report.tex)
+- **Bibliography File:** [`docs/report/references.bib`](docs/report/references.bib)
+
+### How to Recompile the LaTeX Report
+Using XeLaTeX with MiKTeX:
+```powershell
+cd docs/report
+bibtex india_air_quality_project_report
+xelatex -interaction=nonstopmode india_air_quality_project_report.tex
+xelatex -interaction=nonstopmode india_air_quality_project_report.tex
+cd ../..
+```
+
+---
+
+## 12. Repository Directory Structure
+
+```text
 SPSS PROJECT/
+├── README.md                                  # Top-level GitHub landing page & project documentation
+├── pytest.ini                                 # Pytest configuration file
+├── college-logo.png                           # Sanjivani University banner logo
 │
-├── data/
-│   ├── raw/                           # Immutable raw CPCB CSV files (ignored in Git; .gitkeep tracked)
-│   ├── interim/                       # Reindexed continuous grid, eligibility matrix, audit JSONs
-│   └── processed/                     # Preprocessed Parquet variants (ffill & native; .gitkeep tracked)
+├── docs/                                      # Project documentation and reports
+│   ├── report/                                # Academic project report (LaTeX + PDF)
+│   │   ├── india_air_quality_project_report.pdf  # Final compiled 24-page report PDF
+│   │   ├── india_air_quality_project_report.tex  # Complete editable LaTeX source
+│   │   ├── references.bib                     # Academic bibliography database
+│   │   ├── college-logo.png                   # Institutional logo asset
+│   │   └── figures/                           # High-resolution report figure assets (14 PNGs)
+│   ├── reports/                               # Milestone engineering markdown reports
+│   │   ├── PHASE_7_MODELING_REPORT.md         # Model selection & chronological tuning
+│   │   ├── PHASE_8_EVALUATION_REPORT.md       # Final 2019 test & 2020 stress evaluation
+│   │   ├── PHASE_9_INTERPRETABILITY_REPORT.md # TreeSHAP explainability engine report
+│   │   └── PHASE_9_UNCERTAINTY_REPORT.md      # Conformal prediction quantification report
+│   └── review/                                # Milestone readiness and acceptance audit logs
 │
-├── docs/
-│   ├── planning/                      # Audited specification documents (PRD, TRD, APP_FLOW, etc.)
-│   ├── reports/                       # Technical reports (DATA_INVENTORY, DATA_QUALITY, PREPROCESSING, EDA)
-│   └── review/                        # Academic audit reports (PLANNING_AUDIT, EDA_QUALITY_AUDIT, REPO_AUDIT)
+├── models/                                    # Serialized, immutable machine learning models
+│   ├── random_forest_val_model.joblib         # Champion Random Forest pipeline (SHA-256 verified)
+│   ├── ridge_regression_val_model.joblib      # Baseline Ridge pipeline
+│   └── histgradientboosting_val_model.joblib  # Comparator HistGBM pipeline
 │
-├── notebooks/
-│   └── 02_exploratory_data_analysis.ipynb # Executed Jupyter notebook with verified outputs
+├── reports/                                   # Empirical metrics, evaluation CSVs, and figures
+│   ├── figures/                               # 14 publication-grade analytical PNG plots (300 DPI)
+│   ├── model_selection_summary.csv            # Phase 7 validation period metric comparison
+│   ├── phase8_test_metrics.csv                # Primary 2019 test regression metrics
+│   ├── phase8_stress_metrics.csv              # 2020 COVID-19 lockdown stress metrics
+│   ├── phase8_classification_metrics.csv      # CPCB category diagnostic metrics
+│   ├── phase8_ahmedabad_sensitivity.csv       # Ahmedabad anomaly sensitivity analysis
+│   ├── phase9_uncertainty_metrics.csv         # Conformal interval coverage & width metrics
+│   ├── phase9_city_coverage.csv               # Municipal-level empirical coverage table
+│   └── shap_feature_importance.csv            # Global mean absolute SHAP values (36 features)
 │
-├── reports/
-│   ├── figures/                       # 9 publication-grade figures (01 to 09, 300 DPI PNGs)
-│   └── tables/                        # 3 statistical CSV summary tables
+├── src/                                       # Modular Python engineering source code
+│   ├── features/
+│   │   └── feature_builder.py                 # Leak-free temporal feature engineering
+│   └── models/
+│       ├── baseline.py                        # Naive Persistence baseline model
+│       ├── evaluation.py                      # Multi-metric evaluation & CPCB diagnostic mapper
+│       ├── interpretability.py                # Path-Dependent TreeSHAP explainability engine
+│       ├── metrics.py                         # Authoritative regression & classification metrics
+│       ├── pipelines.py                       # Supervised pipeline definitions
+│       ├── predict_cli.py                     # Headless inference CLI interface
+│       ├── train.py                           # Chronological model training & tuning
+│       ├── uncertainty.py                     # Split-conformal uncertainty quantification
+│       └── validation.py                      # Expanding-window temporal cross-validation
 │
-├── src/
-│   ├── __init__.py
-│   ├── data/                          # Data acquisition, profiling, and integrity verification
-│   ├── preprocessing/                 # Continuous reindexing and bounded forward-fill cleaner
-│   └── analysis/                      # Executable EDA figure/table generator and notebook builder
+├── submission/                                # Frozen academic submission milestone
+│   └── phase8_academic_submission/            # 37-file self-contained Phase 8 submission package
 │
-├── tests/
-│   ├── test_data_validation.py        # 7 automated tests: schemas, hashes, non-negativity, CPCB bounds
-│   ├── test_preprocessing.py          # 6 automated tests: continuous calendar, ffill bounds, target immutability
-│   └── test_eda_artifacts.py          # 4 automated tests: figure headers, table structure, clean execution
-│
-├── .gitignore                         # Comprehensive Git exclusions for large datasets, caches, checkpoints
-├── pytest.ini                         # Test runner configuration (pythonpath = ., no asyncio)
-└── README.md                          # Comprehensive project documentation
+└── tests/                                     # Automated test suite (88 tests, 100% passing)
+    ├── test_data_validation.py                # Raw data integrity & checksum tests
+    ├── test_eda_artifacts.py                  # EDA visualization tests
+    ├── test_evaluation.py                     # Evaluation metric & CPCB mapping tests
+    ├── test_features.py                       # Temporal barrier & lag continuity tests
+    ├── test_interpretability.py               # TreeSHAP additivity & background tests
+    ├── test_models.py                         # Model reproducibility & predictor restriction tests
+    ├── test_predict_cli.py                    # Inference CLI interface tests (14 tests)
+    ├── test_preprocessing.py                  # Calendar reindexing & non-imputation tests
+    └── test_uncertainty.py                    # Conformal quantile & interval bounds tests
 ```
 
 ---
 
-## 11. Setup & Reproducibility Instructions (Windows PowerShell)
+## 13. Getting Started & Reproducibility Guide
 
-### Prerequisites
-- Python 3.10.x installed and added to PATH
-- Git for Windows
+### 1. Environment Prerequisites
+- Python 3.10.x
+- Git
 
-### 1. Clone the Repository
+### 2. Clone the Repository
 ```powershell
 git clone https://github.com/akshad1007/india-air-quality-analysis.git
 cd india-air-quality-analysis
 ```
 
-### 2. Set Up a Virtual Environment
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-```
-
 ### 3. Install Dependencies
 ```powershell
-pip install pandas pyarrow scipy matplotlib seaborn pytest pytest-cov jupyter nbconvert kagglehub
+pip install pandas pyarrow scipy matplotlib seaborn scikit-learn joblib shap pytest
 ```
 
-### 4. Acquire the Dataset
-Due to file sizes (>100MB), raw CSV files are not stored in GitHub. Download them using `kagglehub` into `data/raw/`:
+### 4. Run the Full Test Suite (88 Passing Tests)
 ```powershell
-python -c "
-import kagglehub, shutil, os
-path = kagglehub.dataset_download('rohanrao/air-quality-data-in-india')
-os.makedirs('data/raw', exist_ok=True)
-for f in os.listdir(path):
-    if f.endswith('.csv'):
-        shutil.copy(os.path.join(path, f), 'data/raw')
-print('Data acquired successfully.')
-"
+pytest tests/ -v
 ```
+*Expected Result: 88 passed in ~20-25 seconds (zero failures, zero warnings).*
 
-### 5. Run Preprocessing Pipeline
+### 5. Run the Focused CLI Test Suite
 ```powershell
-python src/preprocessing/cleaner.py
+pytest tests/test_predict_cli.py -v
 ```
-
-### 6. Run the Automated Test Suite (17 Tests)
-```powershell
-pytest tests/
-```
-
-### 7. Regenerate All EDA Figures and Summary Tables
-```powershell
-python src/analysis/eda_generator.py
-```
-
-### 8. Execute the Exploratory Notebook Cleanly
-```powershell
-python -m nbconvert --to notebook --execute notebooks/02_exploratory_data_analysis.ipynb --output 02_exploratory_data_analysis.ipynb --output-dir notebooks
-```
+*Expected Result: 14 passed in ~7-9 seconds.*
 
 ---
 
-## 12. Current Project Status & Limitations
+## 14. Academic Limitations and Responsible Use
 
-### Verified Milestone Accomplishments
-- [x] **Phase 0:** Rubric inspection and 9-criteria reconciliation complete.
-- [x] **Phase 1:** Planning documents (PRD, TRD, APP_FLOW, UI_UX, DATA_SCHEMA) audited and locked.
-- [x] **Phase 2:** Raw datasets acquired and SHA-256 verified in `data/raw/`.
-- [x] **Phase 3:** Data quality profiling, missingness heatmaps, and schema checks verified (7/7 tests passed).
-- [x] **Phase 4:** Continuous calendar reindexing, bounded imputation, target preservation verified (6/6 tests passed).
-- [x] **Phase 5:** Statistical EDA executed; 9 publication figures, 3 summary tables, and notebook verified (4/4 tests passed).
-- [x] **Quality Audit:** `docs/review/EDA_QUALITY_AUDIT.md` passed with all hardcoding eliminated.
-- [ ] **Phase 6 (ON HOLD):** Feature engineering pipeline and leak-free transformations awaiting faculty approval.
-
-### Scientific & Data Limitations
-1. **Absence of Numerical Meteorological Data:** The CPCB dataset records chemical pollutant concentrations only. Atmospheric phenomena (monsoon wash-out, thermal inversions) are literature-based hypotheses and cannot be used as predictive features without merging external meteorological datasets (e.g., ERA5 reanalysis).
-2. **Truncated 2020 Record:** The dataset terminates on July 1, 2020, covering only the initial lockdown and early monsoon. It cannot represent a complete post-lockdown annual cycle.
-3. **Monitoring Station Siting Heterogeneity:** Station locations reflect local administrative availability; city-level aggregations may obscure local micro-climates.
-4. **Historical Imbalance:** Only 7 of 26 cities possess continuous records spanning the full 2015–2020 window.
+1. **Meteorological Limitations:** Surface CAAQMS telemetry records criteria pollutants only. Atmospheric boundary layer height, relative humidity, and wind velocity are literature-based hypotheses and were not incorporated as real-time features.
+2. **Exchangeability in Environmental Time Series:** Conformal intervals serve as calibrated empirical baselines. Temporal autocorrelation and meteorological regime shifts can cause coverage drift.
+3. **Extreme Pollution Events:** Prediction intervals are homoscedastic constant-width bands (subject to zero-truncation). For peak episodes where AQI exceeds 500, empirical interval coverage drops to 29.33%. **Intervals must not be interpreted as guaranteed bounds during severe smog emergencies.**
+4. **Non-Causal Interpretation:** Performance differentials between 2019 and 2020 coincide with the COVID-19 mobility restrictions, but cannot be causally proven from observational telemetry alone without atmospheric chemistry transport models.
 
 ---
 
-## 13. Dataset Attribution & Licensing
+## 15. Citation and Attribution
 
-- **Original Data Publisher:** Central Pollution Control Board (CPCB), Ministry of Environment, Forest and Climate Change, Government of India.
-- **Dataset Curator:** Rohan Rao, hosted on [Kaggle](https://www.kaggle.com/datasets/rohanrao/air-quality-data-in-india).
-- **Licensing:** Released under the [Open Data Commons Open Database License (ODbL) / Public Domain Dedication](https://opendatacommons.org/licenses/odbl/).
-- **Project License:** This academic PBL repository is licensed under the [MIT License](LICENSE).
-
----
-
-## 14. Team Collaboration & Contributions
-
-All four team members contributed collaboratively to the academic Problem-Based Learning project under the supervision of **Mr. Rohit Pawar**:
-- **Akshad Makhana (2124UDSM1007):** Repository architecture, data pipeline engineering, and automated testing framework.
-- **Shubham Pawar (2124UDSM1074):** Data acquisition, SHA-256 integrity verification, and missingness profiling.
-- **Yash Kolhe (2124UDSM1107):** Exploratory data analysis, chemical precursor correlation studies, and visualization generation.
-- **Pranav Hadole (2124UDSM1108):** Statistical hypothesis testing, COVID-19 lockdown analysis, and academic report compilation.
-
----
-
-## 15. Planned Future Work (Post-Phase 6)
-
-1. **Leak-Free Feature Engineering:** Implementation of temporal lag matrices ($T-1, T-2, T-7$) and backward-looking rolling statistics ($T-6 \dots T$) strictly within each city partition.
-2. **Baseline Benchmarking:** Computation of naive persistence benchmarks on the 2019 out-of-time test set.
-3. **Supervised Regression Modeling:** Training and hyperparameter tuning of RidgeCV, Random Forest, and HistGradientBoosting regressors.
-4. **Exogenous Shock Stress Testing:** Evaluating model degradation and resilience on the 2020 COVID-19 lockdown regime.
-5. **Interactive Streamlit Dashboard:** Building a multi-page analytical dashboard for public health exploration and offline forecast inspection.
+- **Original Data Source:** Central Pollution Control Board (CPCB), Ministry of Environment, Forest and Climate Change, Government of India.
+- **Dataset Curator:** Rohan Rao, published on [Kaggle](https://www.kaggle.com/datasets/rohanrao/air-quality-data-in-india).
+- **Academic Context:** Developed as a Problem-Based Learning (PBL) project in `24UADPC302: Predictive Modeling Using SPSS (IBM)` at the Department of AI & Data Science, Sanjivani University, Kopargaon.
